@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { headers } from 'next/headers';
 import { GameCard } from "@/components/GameCard";
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { Game } from '@/utils/endpoint';
@@ -8,9 +9,11 @@ export default async function Home({ searchParams }: { searchParams: { genre?: s
   const genre = searchParams.genre || "";
   const page = searchParams.page || "1";
   const query = new URLSearchParams({ ...(genre && { genre }), page }).toString();
-  // Use the current domain name for the API URL
-  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/games?${query}`;
-  const res = await fetch(apiUrl);
+  // Get the current host from headers for absolute URL
+  const host = headers().get('host');
+  const protocol = host?.startsWith('localhost') ? 'http' : 'https';
+  const apiUrl = `${protocol}://${host}/api/games?${query}`;
+  const res = await fetch(apiUrl, { next: { revalidate: 0 } });
   const { games } = await res.json();
   if (!res.ok) {
     return (
