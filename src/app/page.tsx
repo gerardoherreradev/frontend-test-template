@@ -8,7 +8,9 @@ export default async function Home({ searchParams }: { searchParams: { genre?: s
   const genre = searchParams.genre || "";
   const page = searchParams.page || "1";
   const query = new URLSearchParams({ ...(genre && { genre }), page }).toString();
-  const res = await fetch(`http://localhost:3000/api/games?${query}`);
+  // Use the current domain name for the API URL
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/games?${query}`;
+  const res = await fetch(apiUrl);
   const { games } = await res.json();
   if (!res.ok) {
     return (
