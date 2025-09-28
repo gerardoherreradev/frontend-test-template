@@ -1,4 +1,21 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
+@theme {
+  --colors-background: #EBEBEB;
+  --colors-surface-primary: #FFFFFF;
+  --colors-surface-secondary: #1A1A1A;
+  --colors-brand-primary: #343434;
+  --colors-text-primary: #1A1A1A;
+  --colors-text-secondary: #6B6B6B;
+  --colors-text-on-brand: #FFFFFF;
+  --colors-stroke-primary: #CCCCCC;
+
+  --font-family-sans: "Roboto", "sans-serif";
+  
+  --font-size-heading-lg: 24px;
+  --font-size-heading-md: 20px;
+  --font-size-heading-sm: 16px;
+  --font-size-body-lg: 16px;
+  --font-size-body-md: 14px;
+  --font-size-body-sm: 12px;
+}
