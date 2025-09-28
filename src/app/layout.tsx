@@ -1,11 +1,17 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import './globals.css';
+import type { Metadata } from 'next';
+import { Roboto } from 'next/font/google';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { CartProvider } from '@/context/CartContext';
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
-  title: "Apply Digital Test",
+  title: 'GamerShop | Your Favorite Games',
   description: "Frontend development test for Apply Digital",
 };
 
@@ -16,7 +22,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+       <body className={`${roboto.className} bg-background text-text-primary flex flex-col min-h-screen`}>
+        <CartProvider>
+          <Header />
+          <main className="container mx-auto p-4 md:p-8 flex-grow">
+            {children}
+          </main>
+          <Footer />
+        </CartProvider>
+      </body>
     </html>
   );
 }
